@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h> // For exit() function
 
 // Definitions
 #define NPORT 7    // Number of authorized ports
@@ -15,6 +14,13 @@ void format_packet_id(char *formatted_id, const int pkt_ID[]);
 void get_incoming_link(int incoming_link_ID[]);
 
 int main(void) {
+    printf("\n*************************************************************\n");
+    printf("*                                                           *\n");
+    printf("*    Welcome to the Basic Data Router Modelling Program!    *\n");
+    printf("*                                                           *\n");
+    printf("*************************************************************\n\n");
+
+    
     // Sample list of test packets
     int Pkts[NPKTS][NPKTSL] = {
         {192, 168, 10, 2, 212},
@@ -24,18 +30,12 @@ int main(void) {
         {10, 100, 1, 40, 25}
     };
 
-    printf("*************************************************************\n");
-    printf("*                                                           *\n");
-    printf("*    Welcome to the Basic Data Router Modelling Program!    *\n");
-    printf("*                                                           *\n");
-    printf("*************************************************************\n\n");
+    // Authorized ports
+    int authPorts[NPORT] = {20, 73, 60, 80, 212, 173, 2211};
 
     // ID of incoming link
     int incoming_link_ID[NLINK];
     get_incoming_link(incoming_link_ID); // Get incoming link ID from user
-
-    // Authorized ports
-    int authPorts[NPORT] = {20, 73, 60, 80, 212, 173, 2211};
 
     // Print incoming link & authorized ports
     printf("\nIncoming link ID: ");
