@@ -35,39 +35,24 @@ int main(void) {
     get_incoming_link(incoming_link_ID); // Get incoming link ID from user
 
     // Authorized ports
-    int authPorts[NPORT] = {20, 73, 60, 80, 212, 173, 2211};
+    int authPorts[NPORT] = {20, 73, 60, 80, 212, 434, 2211};
 
     // Print incoming link & authorized ports
     printf("\nIncoming link ID: ");
     for (int i = 0; i < NLINK; i++) {
-         printf(i < NLINK - 1 ? "%d." : "%d", incoming_link_ID[i]);
+        printf("%d%c", incoming_link_ID[i], (i < NLINK - 1) ? '.' : '\n');
     }
-    
-    printf("\n");
 
     printf("\nAuthorized ports: ");
     for (int i = 0; i < NPORT; i++) {
-         printf(i < NPORT - 1 ? "%d, " : "%d", authPorts[i]);
+        printf("%d%c", authPorts[i], (i < NPORT - 1) ? ',' : '\n');
     }
-
     printf("\n");
 
     // Packet processing & printing
-    printf("\n%-24s %-20s %-25s\n", "Packet ID", "Port Authorisation", "    Routing");
+    printf("%-20s %-20s %-20s\n", "Packet ID", "Authorisation", "Routing");
     printf("-------------------------------------------------------------\n");
-
-    for (int i = 0; i < NPKTS; i++) {
-        int port = Pkts[i][NPKTSL - 1];
-        int authorised = is_authorised(port, authPorts, NPORT);
-        int routed = packet_route(Pkts[i], incoming_link_ID, 3);
-
-        char formatted_id[50];
-        format_packet_id(formatted_id, Pkts[i]);
-
-        printf("%-25s", formatted_id);
-        display_packet(authorised, routed);
-        printf("\n");
-    }
+    printf(Pkts[1][NPKTSL - 1]);
 
     return 0;
 }
@@ -95,10 +80,10 @@ int packet_route(const int pkt_ID[], const int local_ID[], int size) {
 // Function to display packet authorization and routing status
 void display_packet(int authorised, int routed) {
     if (authorised) {
-        printf("%-25s", "Authorised");
+        printf("%-20s", "Authorised");
         printf(routed ? "Packet Routed" : "Packet Discarded");
     } else {
-        printf("%-25s", "Not Authorised");
+        printf("%-20s", "Not Authorised");
         printf("Packet Discarded");
     }
 }
